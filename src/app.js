@@ -14,9 +14,12 @@ const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
-const ALLOWED_ORIGIN = process.env.CLIENT_URL || 'http://localhost:5173';
+const ALLOWED_ORIGIN = (process.env.CLIENT_URL || 'http://localhost:5173').replace(/\/$/, '');
 
 // ─── Security Middleware ───────────────────────────────────────────────────────
+// Trust Render's proxy so req.ip and secure cookies work correctly
+app.set('trust proxy', 1);
+
 app.use(helmet());
 
 app.use(

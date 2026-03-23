@@ -44,9 +44,9 @@ const login = catchAsync(async (req, res, next) => {
 // POST /api/auth/logout
 const logout = (req, res) => {
   res.cookie('jwt', 'loggedout', {
-    expires: new Date(Date.now() + 10 * 1000), // Expire in 10 seconds
+    expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-    sameSite: 'strict',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
     secure: process.env.NODE_ENV === 'production',
   });
 

@@ -13,9 +13,9 @@ const createAndSendToken = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + parseInt(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
     ),
-    httpOnly: true, // Cannot be accessed or modified by the browser
-    sameSite: 'strict',
-    secure: process.env.NODE_ENV === 'production', // HTTPS only in production
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
   };
 
   // Set JWT as httpOnly cookie
